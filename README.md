@@ -1,16 +1,20 @@
-# coronavirus_covid19_tracker
+# Coronavirus COVId-19 Tracker
 
-A new Flutter project.
+* **Data Source Repo:** - [COVID-19](https://github.com/CSSEGISandData/COVID-19)
+* **API Source Repo:** - [COVID-19-API](https://github.com/mathdroid/covid-19-api)
 
-## Getting Started
+## Note about files
 
-This project is a starting point for a Flutter application.
+The following files required API_Key for Google Maps SDK. 
 
-A few resources to get you started if this is your first Flutter project:
+- `android/app/src/main/AndroidManifest.xml`
+- `ios/Runner/AppDelegate.swift`
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Instructions
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Get an API key at [Google Cloud Platform](https://cloud.google.com/maps-platform/)
+- Follow the complete instructions here: [Google Maps for Flutter](https://pub.dev/packages/google_maps_flutter)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
