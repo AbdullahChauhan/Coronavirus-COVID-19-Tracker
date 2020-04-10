@@ -1,0 +1,27 @@
+GET {{baseUrl}}
+Accept: application/json
+
+###
+
+GET {{baseUrl}}/daily
+Accept: application/json
+
+###
+
+GET {{baseUrl}}/confirmed
+Accept: application/json
+
+###
+
+GET {{baseUrl}}/recovered
+Accept: application/json
+
+###
+
+GET {{baseUrl}}/deaths
+Accept: application/json
+
+###
+
+GET {{baseUrl}}/countries
+Accept: application/json

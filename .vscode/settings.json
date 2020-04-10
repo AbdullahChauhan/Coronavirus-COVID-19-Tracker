@@ -1,0 +1,10 @@
+{
+  "rest-client.environmentVariables": {
+    "sandbox": {
+      "baseUrl": "https://covid19.mathdro.id/api/"
+    },
+    "production": {
+
+    }
+  }
+}
