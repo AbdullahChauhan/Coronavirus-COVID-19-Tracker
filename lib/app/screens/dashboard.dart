@@ -109,7 +109,6 @@ class _DashboardState extends State<Dashboard> {
             .toLowerCase()
             .contains(_countryName.toLowerCase()));
     value.forEach((element) {
-      print(value);
       setState(() {
         if (element['lat'] != null && element['long'] != null) {
           _latitude = element['lat'].toDouble();
@@ -117,7 +116,6 @@ class _DashboardState extends State<Dashboard> {
         }
       });
     });
-    print('$_latitude :: $_longitude');
   }
 
   @override

@@ -1,4 +1,4 @@
-# Coronavirus COVId-19 Tracker
+# Coronavirus COVID-19 Tracker
 
 * **Data Source Repo:** - [COVID-19](https://github.com/CSSEGISandData/COVID-19)
 * **API Source Repo:** - [COVID-19-API](https://github.com/mathdroid/covid-19-api)
