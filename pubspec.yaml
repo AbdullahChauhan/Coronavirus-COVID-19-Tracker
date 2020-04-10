@@ -23,6 +23,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  google_maps_flutter: ^0.5.25
+  http: ^0.12.0+4
+  provider: ^4.0.4
+  json_annotation: ^3.0.1
+  intl: ^0.16.1
+  fl_chart: ^0.8.7
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -32,6 +38,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  json_serializable: ^3.3.0
+  build_runner: ^1.8.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -45,8 +53,17 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/map_styles/style.json
+    - assets/icons/count.png
+    - assets/icons/death.png
+    - assets/icons/fever.png
+    - assets/icons/patient.png
+    - assets/icons/suspect.png
+    - assets/icons/img_deaths_marker1.png
+    - assets/icons/img_deaths_marker2.png
+    - assets/icons/img_deaths_marker3.png
+  # - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
