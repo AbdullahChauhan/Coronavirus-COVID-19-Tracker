@@ -1,10 +1,11 @@
+import 'package:coronavirus_covid19_tracker/app/utils/app_utils.dart';
 import 'package:flutter/material.dart';
 
 class GlobalStatsCard extends StatelessWidget {
   final String title;
   final Color color;
   final String assetName;
-  final String value;
+  final int value;
   final String mapText;
   final bool textChanged;
 
@@ -14,6 +15,7 @@ class GlobalStatsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cases = formattedValue(value);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
       child: Card(
@@ -60,7 +62,7 @@ class GlobalStatsCard extends StatelessWidget {
                   color: color,
                   width: 36.0,
                 ),
-                Text(value,
+                Text(cases,
                     style: Theme.of(context)
                         .textTheme
                         .headline4
