@@ -118,6 +118,29 @@ class _DashboardState extends State<Dashboard> {
     });
   }
 
+  Widget rateDisplay(int numerator, int denominator, String text, Color color) {
+    final percentageValue = calcPercentage(numerator, denominator);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '$percentageValue%',
+          style: Theme.of(context).textTheme.headline6.copyWith(
+                color: color,
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        Text('$text',
+            style: TextStyle(
+              color: Colors.white30,
+              fontSize: 12.0,
+              letterSpacing: .5,
+              fontStyle: FontStyle.italic,
+            ))
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final formatter = LastUpdatedDateFormatter(
@@ -188,6 +211,11 @@ class _DashboardState extends State<Dashboard> {
                 value: _overallRecoveredCases,
                 mapText: _mapText,
                 textChanged: _textChanged,
+                rateDisplay: rateDisplay(
+                    _overallRecoveredCases,
+                    _overallConfirmedCases,
+                    'Recovery Rate',
+                    color_for_recovered),
               ),
             ),
             GestureDetector(
@@ -214,6 +242,8 @@ class _DashboardState extends State<Dashboard> {
                 value: _overallDeaths,
                 mapText: _mapText,
                 textChanged: _textChanged,
+                rateDisplay: rateDisplay(_overallDeaths, _overallConfirmedCases,
+                    'Fatality Rate', color_for_deaths),
               ),
             ),
             Column(
@@ -248,7 +278,9 @@ class _DashboardState extends State<Dashboard> {
                         }));
                       }
                     },
-                    child: (Text(_endpointsData != null ? 'Daily Updates' : 'Loading ...')),
+                    child: (Text(_endpointsData != null
+                        ? 'Daily Updates'
+                        : 'Loading ...')),
                     color: tertiaryColor,
                   ),
                 ),
@@ -266,11 +298,11 @@ class _DashboardState extends State<Dashboard> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: tertiaryColor,
         onPressed: () {
-          if(_countries != null) {
+          if (_countries != null) {
             showCountriesList(
-              context: context,
-              countries: _countries,
-              selectedCountry: updateCountry);
+                context: context,
+                countries: _countries,
+                selectedCountry: updateCountry);
           }
         },
         child: Icon(

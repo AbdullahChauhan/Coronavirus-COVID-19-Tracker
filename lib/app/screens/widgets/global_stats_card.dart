@@ -8,9 +8,17 @@ class GlobalStatsCard extends StatelessWidget {
   final int value;
   final String mapText;
   final bool textChanged;
+  final Widget rateDisplay;
 
   const GlobalStatsCard(
-      {Key key, this.title, this.color, this.assetName, this.value, this.mapText, this.textChanged})
+      {Key key,
+      @required this.title,
+      @required this.color,
+      @required this.assetName,
+      @required this.value,
+      @required this.mapText,
+      @required this.textChanged,
+      this.rateDisplay})
       : super(key: key);
 
   @override
@@ -27,29 +35,30 @@ class GlobalStatsCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              Text(
-              title,
-              style: Theme.of(context).textTheme.headline6.copyWith(
-                    color: color,
-                    fontWeight: FontWeight.w400,
-                  ),
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                        color: color,
+                        fontWeight: FontWeight.w400,
+                      ),
+                ),
+                AnimatedDefaultTextStyle(
+                  style: textChanged
+                      ? TextStyle(
+                          color: Colors.white30,
+                          fontSize: 12.0,
+                          letterSpacing: .5,
+                          fontStyle: FontStyle.italic)
+                      : TextStyle(
+                          color: Colors.white12,
+                          fontSize: 10.0,
+                          letterSpacing: .5,
+                          fontStyle: FontStyle.italic),
+                  duration: const Duration(milliseconds: 250),
+                  child: Text(mapText),
+                )
+              ],
             ),
-            AnimatedDefaultTextStyle(
-              style: textChanged ? TextStyle(
-                color: Colors.white30,
-                fontSize: 12.0,
-                letterSpacing: .5,
-                fontStyle: FontStyle.italic
-              ) : TextStyle(
-                color: Colors.white12,
-                fontSize: 10.0,
-                letterSpacing: .5,
-                fontStyle: FontStyle.italic
-              ) ,
-              duration: const Duration(milliseconds: 250),
-                          child: Text(mapText),
-            )
-            ],),
             SizedBox(
               height: 6.0,
             ),
@@ -60,13 +69,18 @@ class GlobalStatsCard extends StatelessWidget {
                 Image.asset(
                   assetName,
                   color: color,
-                  width: 36.0,
+                  width: 28.0,
                 ),
+                SizedBox(
+                  width: 8.0,
+                ),
+                if (rateDisplay != null) rateDisplay,
+                Spacer(),
                 Text(cases,
                     style: Theme.of(context)
                         .textTheme
                         .headline4
-                        .copyWith(color: color, fontWeight: FontWeight.w600))
+                        .copyWith(color: color, fontWeight: FontWeight.w600)),
               ],
             ),
           ],

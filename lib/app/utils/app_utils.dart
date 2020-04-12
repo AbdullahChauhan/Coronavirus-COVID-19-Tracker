@@ -21,3 +21,7 @@ String truncateWithEllipsis(int cutoff, String myString) {
     ? myString
     : '${myString.substring(0, cutoff)} ...';
 }
+
+int calcPercentage(int numerator, int denominator) {
+  return ((numerator / denominator) * 100).toInt();
+}
