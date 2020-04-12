@@ -3,6 +3,10 @@
 * **Data Source Repo:** - [COVID-19](https://github.com/CSSEGISandData/COVID-19)
 * **API Source Repo:** - [COVID-19-API](https://github.com/mathdroid/covid-19-api)
 
+## Screenshots
+
+![cover](https://user-images.githubusercontent.com/26044917/79067881-2db97680-7cdc-11ea-9d47-4e853bfe50c1.png)
+
 ## Note about files
 
 The following files required API_Key for Google Maps SDK. 
