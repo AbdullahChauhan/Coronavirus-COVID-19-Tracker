@@ -269,7 +269,7 @@ class _DashboardState extends State<Dashboard> {
                       )
                     : Center(
                         child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 123.0),
+                        padding: const EdgeInsets.symmetric(vertical: 135.0),
                         child: CircularProgressIndicator(),
                       )),
                 Padding(
