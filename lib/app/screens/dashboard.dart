@@ -118,33 +118,16 @@ class _DashboardState extends State<Dashboard> {
     });
   }
 
-  Widget rateDisplay(int numerator, int denominator, String text, Color color) {
-    final percentageValue = calcPercentage(numerator, denominator);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '$percentageValue%',
-          style: Theme.of(context).textTheme.headline6.copyWith(
-                color: color,
-                fontWeight: FontWeight.w600,
-              ),
-        ),
-        Text('$text',
-            style: TextStyle(
-              color: Colors.white30,
-              fontSize: 12.0,
-              letterSpacing: .5,
-              fontStyle: FontStyle.italic,
-            ))
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final formatter = LastUpdatedDateFormatter(
         lastUpdatedDate: _lastUpdatedDate != null ? _lastUpdatedDate : null);
+    final textStyleForRate = TextStyle(
+      color: Colors.white30,
+      fontSize: 12.0,
+      letterSpacing: .5,
+      fontStyle: FontStyle.italic,
+    );
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: _updateData,
@@ -182,7 +165,7 @@ class _DashboardState extends State<Dashboard> {
                 title: 'Total Confirmed',
                 color: color_for_confirmed,
                 assetName: 'assets/icons/fever.png',
-                value: _overallConfirmedCases,
+                value: _overallConfirmedCases != null ? _overallConfirmedCases : 0,
                 mapText: _mapText,
                 textChanged: _textChanged,
               ),
@@ -208,14 +191,17 @@ class _DashboardState extends State<Dashboard> {
                 title: 'Total Recovered',
                 color: color_for_recovered,
                 assetName: 'assets/icons/patient.png',
-                value: _overallRecoveredCases,
+                value: _overallRecoveredCases != null ? _overallRecoveredCases : 0,
                 mapText: _mapText,
                 textChanged: _textChanged,
                 rateDisplay: rateDisplay(
+                    context,
                     _overallRecoveredCases,
                     _overallConfirmedCases,
                     'Recovery Rate',
-                    color_for_recovered),
+                    color_for_recovered,
+                    textStyleForRate,
+                    true),
               ),
             ),
             GestureDetector(
@@ -239,11 +225,17 @@ class _DashboardState extends State<Dashboard> {
                 title: 'Total Deaths',
                 color: color_for_deaths,
                 assetName: 'assets/icons/death.png',
-                value: _overallDeaths,
+                value: _overallDeaths != null ? _overallDeaths : 0,
                 mapText: _mapText,
                 textChanged: _textChanged,
-                rateDisplay: rateDisplay(_overallDeaths, _overallConfirmedCases,
-                    'Fatality Rate', color_for_deaths),
+                rateDisplay: rateDisplay(
+                    context,
+                    _overallDeaths,
+                    _overallConfirmedCases,
+                    'Fatality Rate',
+                    color_for_deaths,
+                    textStyleForRate,
+                    true),
               ),
             ),
             Column(
@@ -257,7 +249,24 @@ class _DashboardState extends State<Dashboard> {
                         color1: color_for_active,
                         color2: color_for_confirmed,
                         color3: color_for_recovered,
-                        color4: color_for_deaths)
+                        color4: color_for_deaths,
+                        rateDisplay1: rateDisplay(
+                            context,
+                            _countryData.recovered['value'],
+                            _countryData.confirmed['value'],
+                            'Recovery Rate',
+                            color_for_recovered,
+                            textStyleForRate,
+                            false),
+                        rateDisplay2: rateDisplay(
+                            context,
+                            _countryData.deaths['value'],
+                            _countryData.confirmed['value'],
+                            'Fatality Rate',
+                            color_for_deaths,
+                            textStyleForRate,
+                            false),
+                      )
                     : Center(
                         child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 123.0),

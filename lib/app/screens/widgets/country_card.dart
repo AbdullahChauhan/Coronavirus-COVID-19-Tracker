@@ -12,16 +12,20 @@ class CountryCard extends StatelessWidget {
   final Color color3;
   final Color color4;
   final String countryName;
+  final Widget rateDisplay1;
+  final Widget rateDisplay2;
 
-  const CountryCard(
-      {Key key,
-      @required this.countryData,
-      @required this.color1,
-      @required this.color2,
-      @required this.color3,
-      @required this.color4,
-      @required this.countryName})
-      : super(key: key);
+  const CountryCard({
+    Key key,
+    @required this.countryData,
+    @required this.color1,
+    @required this.color2,
+    @required this.color3,
+    @required this.color4,
+    @required this.countryName,
+    @required this.rateDisplay1,
+    @required this.rateDisplay2,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +34,10 @@ class CountryCard extends StatelessWidget {
     int _deaths = countryData.deaths['value'];
     int _activeCases = (_confirmedCases - _recoveredCases) - _deaths;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -100,6 +104,17 @@ class CountryCard extends StatelessWidget {
               ),
               SizedBox(
                 height: 8.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (rateDisplay1 != null) rateDisplay1,
+                  SizedBox(width: 8.0),
+                  if (rateDisplay2 != null) rateDisplay2
+                ],
+              ),
+              SizedBox(
+                height: 4.0,
               ),
               Row(
                 children: <Widget>[

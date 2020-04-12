@@ -18,10 +18,32 @@ String formattedValue(dynamic value) {
 
 String truncateWithEllipsis(int cutoff, String myString) {
   return (myString.length <= cutoff)
-    ? myString
-    : '${myString.substring(0, cutoff)} ...';
+      ? myString
+      : '${myString.substring(0, cutoff)} ...';
 }
 
 int calcPercentage(int numerator, int denominator) {
-  return ((numerator / denominator) * 100).toInt();
+  if (numerator != null && denominator != null) {
+    return ((numerator / denominator) * 100).toInt();
+  }
+  return 0;
+}
+
+Widget rateDisplay(BuildContext context, int numerator, int denominator,
+    String text, Color color, TextStyle textStyle, bool inStart) {
+  final percentageValue = calcPercentage(numerator, denominator);
+  return Column(
+    crossAxisAlignment:
+        inStart ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+    children: [
+      Text(
+        '$percentageValue%',
+        style: Theme.of(context).textTheme.subtitle1.copyWith(
+              color: color,
+              fontWeight: FontWeight.w500,
+            ),
+      ),
+      Text('$text', style: textStyle)
+    ],
+  );
 }
