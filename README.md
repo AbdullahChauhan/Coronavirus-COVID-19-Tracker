@@ -19,6 +19,10 @@ The following files required API_Key for Google Maps SDK.
 - Get an API key at [Google Cloud Platform](https://cloud.google.com/maps-platform/)
 - Follow the complete instructions here: [Google Maps for Flutter](https://pub.dev/packages/google_maps_flutter)
 
+### Responsiveness of the app
+
+- `There may be some issues related to responsive behavior of the app. Just because I'm not focusing on this and also because of NOT using any Media query right now ...`
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
