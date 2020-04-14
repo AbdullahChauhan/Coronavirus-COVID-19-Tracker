@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coronavirus_covid19_tracker/app/models/covid19.dart';
 import 'package:coronavirus_covid19_tracker/app/repositories/data_repository.dart';
 import 'package:coronavirus_covid19_tracker/app/screens/daily_update.dart';
@@ -72,6 +73,7 @@ class _DashboardState extends State<Dashboard> {
           context: context,
           title: 'Connection error',
           content: 'Could not retreive data. Please try again later.',
+          isPersonalInfo: false,
           defaultActionText: 'Ok');
     }
   }
@@ -134,13 +136,50 @@ class _DashboardState extends State<Dashboard> {
         child: ListView(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Coronavirus COVID-19 Global Cases',
-                      style: Theme.of(context).textTheme.subtitle1),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Coronavirus COVID-19 Global Cases',
+                          style: Theme.of(context).textTheme.subtitle1),
+                      GestureDetector(
+                        child: Icon(
+                          Icons.account_circle,
+                          size: 24.0,
+                          color: Colors.white70,
+                        ),
+                        onTap: () => showAlertDialog(
+                            context: context,
+                            avatar: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              imageUrl:
+                                  'https://avatars1.githubusercontent.com/u/26044917?s=460&u=e0bea0fa9c6cab1d1136bfca6d523d1138f31b3f&v=4',
+                              imageBuilder: (context, imageProvider) => Center(
+                                child: CircleAvatar(
+                                  backgroundImage: imageProvider,
+                                  radius: 64,
+                                ),
+                              ),
+                              placeholder: (context, url) => Center(
+                                  child: CircularProgressIndicator(
+                                backgroundColor: Colors.black54,
+                                strokeWidth: 2.0,
+                              )),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
+                            isPersonalInfo: true,
+                            defaultActionText: "Close"),
+                      )
+                    ],
+                  ),
                   SizedBox(height: 8.0),
-                  LastUpdatedStatusText(text: formatter.lastUpdatedStatusText())
+                  LastUpdatedStatusText(
+                      text: formatter.lastUpdatedStatusText()),
                 ],
               ),
             ),
@@ -165,7 +204,8 @@ class _DashboardState extends State<Dashboard> {
                 title: 'Total Confirmed',
                 color: color_for_confirmed,
                 assetName: 'assets/icons/fever.png',
-                value: _overallConfirmedCases != null ? _overallConfirmedCases : 0,
+                value:
+                    _overallConfirmedCases != null ? _overallConfirmedCases : 0,
                 mapText: _mapText,
                 textChanged: _textChanged,
               ),
@@ -191,7 +231,8 @@ class _DashboardState extends State<Dashboard> {
                 title: 'Total Recovered',
                 color: color_for_recovered,
                 assetName: 'assets/icons/patient.png',
-                value: _overallRecoveredCases != null ? _overallRecoveredCases : 0,
+                value:
+                    _overallRecoveredCases != null ? _overallRecoveredCases : 0,
                 mapText: _mapText,
                 textChanged: _textChanged,
                 rateDisplay: rateDisplay(
