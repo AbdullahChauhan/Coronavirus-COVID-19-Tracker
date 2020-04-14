@@ -6,8 +6,6 @@ class GlobalStatsCard extends StatelessWidget {
   final Color color;
   final String assetName;
   final int value;
-  final String mapText;
-  final bool textChanged;
   final Widget rateDisplay;
 
   const GlobalStatsCard(
@@ -16,8 +14,6 @@ class GlobalStatsCard extends StatelessWidget {
       @required this.color,
       @required this.assetName,
       @required this.value,
-      @required this.mapText,
-      @required this.textChanged,
       this.rateDisplay})
       : super(key: key);
 
@@ -42,21 +38,6 @@ class GlobalStatsCard extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                 ),
-                AnimatedDefaultTextStyle(
-                  style: textChanged
-                      ? TextStyle(
-                          color: Colors.white30,
-                          fontSize: 12.0,
-                          letterSpacing: .5,
-                          fontStyle: FontStyle.italic)
-                      : TextStyle(
-                          color: Colors.white12,
-                          fontSize: 10.0,
-                          letterSpacing: .5,
-                          fontStyle: FontStyle.italic),
-                  duration: const Duration(milliseconds: 250),
-                  child: Text(mapText),
-                )
               ],
             ),
             SizedBox(

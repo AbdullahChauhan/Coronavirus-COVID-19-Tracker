@@ -2,13 +2,11 @@ import 'dart:io';
 import 'package:coronavirus_covid19_tracker/app/models/covid19.dart';
 import 'package:coronavirus_covid19_tracker/app/repositories/data_repository.dart';
 import 'package:coronavirus_covid19_tracker/app/screens/daily_update.dart';
-import 'package:coronavirus_covid19_tracker/app/screens/map.dart';
 import 'package:coronavirus_covid19_tracker/app/screens/widgets/alert_dialog.dart';
 import 'package:coronavirus_covid19_tracker/app/screens/widgets/bottom_sheet.dart';
 import 'package:coronavirus_covid19_tracker/app/screens/widgets/country_card.dart';
 import 'package:coronavirus_covid19_tracker/app/screens/widgets/global_stats_card.dart';
 import 'package:coronavirus_covid19_tracker/app/screens/widgets/lastupdated_status_text.dart';
-import 'package:coronavirus_covid19_tracker/app/services/api.dart';
 import 'package:coronavirus_covid19_tracker/app/utils/app_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,18 +26,10 @@ class _DashboardState extends State<Dashboard> {
   Covid19 _countryData;
   List<dynamic> _countries;
   String _countryName;
-  double _latitude;
-  double _longitude;
-  String _mapText;
-  bool _textChanged;
 
   @override
   void initState() {
     _countryName = 'Pakistan';
-    _mapText = 'Loading Map ...';
-    _textChanged = false;
-    _latitude = 30.3753;
-    _longitude = 69.3451;
     _updateData();
     super.initState();
   }
@@ -49,7 +39,6 @@ class _DashboardState extends State<Dashboard> {
       _countryName = countryName;
     });
     _getSingleCountryData(countryName);
-    _updatedCountryCordinates(_endpointsData, Endpoint.confirmed);
   }
 
   Future<void> _updateData() async {
@@ -81,8 +70,6 @@ class _DashboardState extends State<Dashboard> {
     final endpointsData = await dataRepository1.getAllEndpointsData();
     setState(() {
       _endpointsData = endpointsData;
-      _mapText = 'Tap to view map';
-      _textChanged = true;
     });
   }
 
@@ -99,22 +86,6 @@ class _DashboardState extends State<Dashboard> {
     final countries = await dataRepository2.getAllCountriesList();
     setState(() {
       _countries = countries['countries'];
-    });
-  }
-
-  void _updatedCountryCordinates(
-      EndpointsData endpointsData, Endpoint endpoint) {
-    final value = endpointsData.values[endpoint].where((country) =>
-        country['countryRegion']
-            .toLowerCase()
-            .contains(_countryName.toLowerCase()));
-    value.forEach((element) {
-      setState(() {
-        if (element['lat'] != null && element['long'] != null) {
-          _latitude = element['lat'].toDouble();
-          _longitude = element['long'].toDouble();
-        }
-      });
     });
   }
 
@@ -144,99 +115,39 @@ class _DashboardState extends State<Dashboard> {
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                if (_endpointsData != null) {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) {
-                    return MapScreen(
-                      endpointsData: _endpointsData.confirmed,
-                      latitude: _latitude,
-                      longitude: _longitude,
-                      assetName: 'assets/icons/img_deaths_marker1.png',
-                      confirmed: true,
-                      recovered: false,
-                      deaths: false,
-                      title: 'Confirmed',
-                    );
-                  }));
-                }
-              },
-              child: GlobalStatsCard(
-                title: 'Total Confirmed',
-                color: color_for_confirmed,
-                assetName: 'assets/icons/fever.png',
-                value: _overallConfirmedCases != null ? _overallConfirmedCases : 0,
-                mapText: _mapText,
-                textChanged: _textChanged,
-              ),
+            GlobalStatsCard(
+              title: 'Total Confirmed',
+              color: color_for_confirmed,
+              assetName: 'assets/icons/fever.png',
+              value: _overallConfirmedCases != null ? _overallConfirmedCases : 0,
             ),
-            GestureDetector(
-              onTap: () {
-                if (_endpointsData != null) {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) {
-                    return MapScreen(
-                      endpointsData: _endpointsData.recovered,
-                      latitude: _latitude,
-                      longitude: _longitude,
-                      assetName: 'assets/icons/img_deaths_marker2.png',
-                      confirmed: false,
-                      recovered: true,
-                      deaths: false,
-                      title: 'Recovered',
-                    );
-                  }));
-                }
-              },
-              child: GlobalStatsCard(
-                title: 'Total Recovered',
-                color: color_for_recovered,
-                assetName: 'assets/icons/patient.png',
-                value: _overallRecoveredCases != null ? _overallRecoveredCases : 0,
-                mapText: _mapText,
-                textChanged: _textChanged,
-                rateDisplay: rateDisplay(
-                    context,
-                    _overallRecoveredCases,
-                    _overallConfirmedCases,
-                    'Recovery Rate',
-                    color_for_recovered,
-                    textStyleForRate,
-                    true),
-              ),
+            GlobalStatsCard(
+              title: 'Total Recovered',
+              color: color_for_recovered,
+              assetName: 'assets/icons/patient.png',
+              value: _overallRecoveredCases != null ? _overallRecoveredCases : 0,
+              rateDisplay: rateDisplay(
+                  context,
+                  _overallRecoveredCases,
+                  _overallConfirmedCases,
+                  'Recovery Rate',
+                  color_for_recovered,
+                  textStyleForRate,
+                  true),
             ),
-            GestureDetector(
-              onTap: () {
-                if (_endpointsData != null) {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) {
-                    return MapScreen(
-                      endpointsData: _endpointsData.deaths,
-                      latitude: _latitude,
-                      longitude: _longitude,
-                      assetName: 'assets/icons/img_deaths_marker3.png',
-                      confirmed: false,
-                      recovered: false,
-                      deaths: true,
-                      title: 'Death',
-                    );
-                  }));
-                }
-              },
-              child: GlobalStatsCard(
-                title: 'Total Deaths',
-                color: color_for_deaths,
-                assetName: 'assets/icons/death.png',
-                value: _overallDeaths != null ? _overallDeaths : 0,
-                mapText: _mapText,
-                textChanged: _textChanged,
-                rateDisplay: rateDisplay(
-                    context,
-                    _overallDeaths,
-                    _overallConfirmedCases,
-                    'Fatality Rate',
-                    color_for_deaths,
-                    textStyleForRate,
-                    true),
-              ),
+            GlobalStatsCard(
+              title: 'Total Deaths',
+              color: color_for_deaths,
+              assetName: 'assets/icons/death.png',
+              value: _overallDeaths != null ? _overallDeaths : 0,
+              rateDisplay: rateDisplay(
+                  context,
+                  _overallDeaths,
+                  _overallConfirmedCases,
+                  'Fatality Rate',
+                  color_for_deaths,
+                  textStyleForRate,
+                  true),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
