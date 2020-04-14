@@ -13,7 +13,6 @@ class DataChart extends StatelessWidget {
   List<PieChartSectionData> showingSections() {
     int lengthOfSections = 3;
     return List.generate(lengthOfSections, (i) {
-      final double fontSize = 16;
       final double radius = 15;
       switch (i) {
         case 0:
@@ -22,10 +21,6 @@ class DataChart extends StatelessWidget {
             value: confirmed,
             radius: radius,
             title: '',
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
           );
         case 1:
           return PieChartSectionData(
@@ -33,10 +28,6 @@ class DataChart extends StatelessWidget {
             value: recovered,
             radius: radius,
             title: '',
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
           );
         case 2:
           return PieChartSectionData(
@@ -44,10 +35,6 @@ class DataChart extends StatelessWidget {
             value: deaths,
             title: '',
             radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
           );
         default:
           return null;

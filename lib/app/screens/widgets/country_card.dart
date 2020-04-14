@@ -60,6 +60,7 @@ class CountryCard extends StatelessWidget {
                         title: "Keep patience",
                         content:
                             "After selecting the new country, you've to wait for 1/3 secs so it will re-update the card. Its totally depend on your internet connection.",
+                            isPersonalInfo: false,
                         defaultActionText: "Ok"),
                   )
                 ],
@@ -109,7 +110,7 @@ class CountryCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (rateDisplay1 != null) rateDisplay1,
-                  SizedBox(width: 8.0),
+                  SizedBox(width: 16.0),
                   if (rateDisplay2 != null) rateDisplay2
                 ],
               ),
