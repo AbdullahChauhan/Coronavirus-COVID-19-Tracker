@@ -7,6 +7,10 @@
 
 ![cover](https://user-images.githubusercontent.com/26044917/79067881-2db97680-7cdc-11ea-9d47-4e853bfe50c1.png)
 
+## Without Map
+
+There's a different branch [without-map-feature](https://github.com/AbdullahChauhan/Coronavirus-COVID-19-Tracker/tree/without-map-feature) which not included any work related to Map. Otherwise you can follow steps mention below.
+
 ## Note about files
 
 The following files required API_Key for Google Maps SDK. 
