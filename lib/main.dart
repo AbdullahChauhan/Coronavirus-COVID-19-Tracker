@@ -12,7 +12,10 @@ void main() {
     systemNavigationBarColor: primaryColor, // navigation bar color
     statusBarColor: primaryColor, // status bar color
   ));
-  runApp(MyApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+    .then((_) {
+      runApp(new MyApp());
+    });
 }
 
 class MyApp extends StatelessWidget {
