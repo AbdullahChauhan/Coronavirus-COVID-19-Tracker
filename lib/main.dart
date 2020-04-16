@@ -8,14 +8,15 @@ import 'package:coronavirus_covid19_tracker/app/utils/app_utils.dart';
 import 'package:coronavirus_covid19_tracker/app/screens/dashboard.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: primaryColor, // navigation bar color
     statusBarColor: primaryColor, // status bar color
   ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-    .then((_) {
-      runApp(new MyApp());
-    });
+      .then((_) {
+    runApp(new MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -24,22 +25,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider<DataRepository>(
       create: (context) => DataRepository(apiService: APIService(API())),
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-        title: 'Covid-19 Tracker',
-        theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: primaryColor,
-          cardColor: secondaryColor,
-          bottomSheetTheme: BottomSheetThemeData(
-            backgroundColor: primaryColor
-          ),
-          dialogBackgroundColor: secondaryColor,
-          appBarTheme: AppBarTheme(
-            color: primaryColor
-          )
-        ),
-        home: Dashboard()
-      ),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Covid-19 Tracker',
+          theme: ThemeData.dark().copyWith(
+              scaffoldBackgroundColor: primaryColor,
+              cardColor: secondaryColor,
+              bottomSheetTheme:
+                  BottomSheetThemeData(backgroundColor: primaryColor),
+              dialogBackgroundColor: secondaryColor,
+              appBarTheme: AppBarTheme(color: primaryColor)),
+          home: Dashboard()),
     );
   }
 }
